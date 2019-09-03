@@ -22,7 +22,7 @@ track () {
     fi 
 
     if [[ "$STATE" == "STOP" ]]; then 
-        # Sjekker aktiv oppgave. Siste linje i logfile.txt starter på LABEL.
+        # Sjekker aktiv oppgave. Siste linje i logfile.txt starter paa LABEL.
         if [ "$(tail -n 1 $LOGFILE | cut -d' ' -f1)" == "$LABELTXT" ]; then
             echo "END" $(date)$'\n' >>  $LOGFILE; 
         else 
