@@ -96,120 +96,118 @@ class Test_complex:
         assert z.conjugate() == Complex(7, 0)
 
     def test_modulus_1(self):
-        """Test 1 modulus   
-        """
+        """Test 1 modulus"""
+
         z = Complex(0, 3)
         assert z.modulus() == 3
 
     def test_modulus_2(self):
-        """Test 2 modulus   
-        """
+        """Test 2 modulus"""
+
         z = Complex(5, 0)
         assert z.modulus() == 5
 
     def test_modulus_3(self):
-        """Test 3 modulus   
-        """
+        """Test 3 modulus"""
+
         z = Complex(1, 4)
         assert z.modulus() == math.sqrt(17)
 
     def test_eq_1(self):
-        """Test 1 equal   
-        """
+        """Test 1 equal"""
+
         z = Complex(1, 4)
         w = Complex(4, 1)
         assert z != w
 
     def test_eq_2(self):
-        """Test 2 equal   
-        """
+        """Test 2 equal"""
+
         z = Complex(0, 1)
         w = Complex(0, 1)
         assert z == w
 
     def test_eq_3(self):
-        """Test 3 equal  
-        """
+        """Test 3 equal"""
+
         z = Complex(5, 5)
         w = Complex(5, 5)
         assert z == w
 
     def test_rsub_1(self):
-        """Test 1 reverse subtracting    
-        """
+        """Test 1 reverse subtracting"""
+
         assert 4 - Complex(3, 4) == Complex(1, -4)
 
     def test_rsub_2(self):
-        """Test 2 reverse subtracting    
-        """
+        """Test 2 reverse subtracting"""
+
         assert -1 - Complex(3, 4) == Complex(-4, -4)
 
     def test_rsub_3(self):
-        """Test 3 reverse subtracting    
-        """
+        """Test 3 reverse subtracting"""
+
         assert -2 - Complex(0, 4) == Complex(-2, -4)
 
     def test_rmul_1(self):
-        """Test 1 reverse multiplication    
-        """
+        """Test 1 reverse multiplication"""
+
         assert 4 * Complex(3, 4) == Complex(12, 16)
 
     def test_rmul_2(self):
-        """Test 2 reverse multiplication    
-        """
+        """Test 2 reverse multiplication"""
+
         assert 4 * Complex(0, 4) == Complex(0, 16)
 
     def test_rmul_3(self):
-        """Test 3 reverse multiplication    
-        """
+        """Test 3 reverse multiplication"""
+
         assert 4 * Complex(3, 0) == Complex(12, 0)
 
     def test_radd_1(self):
-        """Test 1 reverse addition    
-        """
+        """Test 1 reverse addition"""
+
         assert 4 + Complex(3, 4) == Complex(7, 4)
 
     def test_radd_2(self):
-        """Test 2 reverse addition    
-        """
+        """Test 2 reverse addition"""
+
         assert 4 + Complex(-3, 0) == Complex(1, 0)
 
     def test_radd_3(self):
-        """Test 3 reverse addition    
-        """
+        """Test 3 reverse addition"""
+
         assert 4 + Complex(0, 1) == Complex(4, 1)
 
     def test_comp_1(self):
-        """Test 1 builtin complex     
-        """
+        """Test 1 builtin complex"""
+
         assert complex(2, 3) == Complex(2, 3)
 
     def test_comp_2(self):
-        """Test 2 builtin complex     
-        """
+        """Test 2 builtin complex"""
+
         assert complex(0, 1) == Complex(0, 1)
 
     def test_comp_3(self):
-        """Test 3 builtin complex     
-        """
+        """Test 3 builtin complex"""
+
         assert complex(0, 0) == Complex(0, 0)
 
     def test_combined_1(self):
-        """ Test combined methods 1
-        """
+        """ Test combined methods 1"""
+
         assert 4 * Complex(3, 4) - 2 == Complex(10, 16)
 
     def test_combined_2(self):
-        """ Test combined methods 1
-        """
+        """ Test combined methods 2"""
+
         assert Complex(2, 3) + complex(2, 2) == Complex(4, 5)
 
     def test_combined_3(self):
-        """ Test combined methods 1
-        """
+        """ Test combined methods 3"""
         assert complex(2, 2) - Complex(2, 3) == Complex(0, -1)
 
     def test_combined_4(self):
-        """ Test combined methods 1
-        """
+        """ Test combined methods 4"""
         assert Complex(5, 3) * complex(4, 1) == Complex(17, 17)

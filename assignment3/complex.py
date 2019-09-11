@@ -23,15 +23,13 @@ class Complex:
     # Assignment 3.3
 
     def conjugate(self):
-        """Return conjugate of the complex number a+ib
+        """Return conjugate of the complex number a+ib"""
 
-        """
         return Complex(self.a, -self.b)
 
     def modulus(self):
-        """Find the modulus of the complex number.
+        """Find the modulus of the complex number."""
 
-        """
         sqr_length = (self.a**2) + (self.b**2)
         length = math.sqrt(sqr_length)
         return length
@@ -157,7 +155,6 @@ class Complex:
 
     # Make the `complex` function turn this into Python's version of a complex number
     def __complex__(self):
-        """Pythons version of a complex number. 
+        """Pythons version of a complex number. """
 
-        """
         return complex(self.a, self.b)
