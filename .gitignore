@@ -3,3 +3,9 @@
 assignment4/build
 assignment4/test2.jpg
 assignment4/beatles_blur.jpg
+assignment4/beatles_blurred_cython.jpg
+assignment4/beatles_blurred_python.jpg
+assignment4/blur_4_imp.c
+assignment4/blur_4_imp.cpython-36m-x86_64-linux-gnu.so
+assignment4/blur_4.c
+assignment4/blur_4.cpython-36m-x86_64-linux-gnu.so
