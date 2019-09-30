@@ -2,67 +2,100 @@
 # -*- coding: utf-8 -*-
 
 import time
-
 import cv2
 import numpy as np
+#import timeit  
 
-#import matplotlib
-#import matplotlib.pyplot as plt 
 
-filename = 'beatles.jpg'
+#def blur_wrapper(): 
+#    pad_image, image = padImage()
+#    image_blur = blur_numpy(pad_image, image)
 
-image = cv2.imread(filename)
-#image = cv2 . cvtColor ( image , cv2 . COLOR_BGR2RGB )
+def padImage():
+    """Preprocess image before blurring.    
+    
+    Returns: 
+        pad_image: padded image with dimensions: m+2, n+2, c
+        image: original image with dimensions m,n,c.   
+    """
+    #Read image 
+    filename = 'beatles.jpg'
+    image = cv2.imread(filename)
 
-#cv2.imshow('I',image)
-#cv2.waitKey()
+    #cv2.imshow('I',image)
+    #cv2.waitKey()
+
+
+    # pad image: 
+    m, n, c = image.shape 
+    pad_image = np.zeros((m+2, n+2, c)) 
+    pimage = np.pad(image, (1,1), 'edge')
+    pad_image = pimage[:,:,1:4] 
+    return pad_image, image 
+
+# blurred image 
+### Without forloops 
 
 # pad image: 
-m, n, c = image.shape 
+#pimage = np.pad(image, (1,1), 'edge')
+#pad_image = pimage[:,:,1:4] 
+#pad_image = pad_image.astype('uint32')
 
-pad_image = np.zeros((m+2, n+2, c)) 
-
-print(image.shape)
-
-
-#plt.figure()
-#plt.imshow(image, cmap='gray')
-    
-pimage = np.pad(image, (1,1), 'edge')
-pad_image = pimage[:,:,1:4] 
 
 # blurred image 
 
-def blur_numpy(pad_image): 
+def blur_numpy(pad_image, image): 
+    """Blur an image with one vectorized operation, using numpyslicing.  
+    
+    Args: 
+        image: 3D array, image with dimensions m,n,c (height, width and channels). 
+        pad_image: 3D array, padded height and width, with dimensions m+2, n+2, c. 
+
+    Returns: 
+        image_blur: blurred image, same dimensions as image.  
+    """
+    
+    
     # define new image 
-    image_blur2 = np.zeros((m,n,c))
+    image_blur = np.zeros(image.shape)
+        
+    #pad_image = np.pad(image, ((1,1), (1,1), (0,0)))
+    #pad_image = np.pad(image, ((1,1), (1,1), (0,0)), 'edge')
 
     kernel_weight = 1/9 
-    print(m,n)
 
+    m, n, c = image.shape 
     pad_image = pad_image.astype('uint32')
-    #print(pad_image.shape)
-
-    a = np.zeros((3*3,3)) 
-    b = np.zeros((m,n,c, 9))
-
-    start_time = time.process_time()
-
-    for i in range(1,m+1): 
-        for j in range(1,n+1):
-            b[i-1,j-1,:, :] = pad_image[i-1:i+2, j-1:j+2, :].reshape(3,-1)
 
 
-    image_blur2 = np.sum(b.reshape(-1,9), axis = 1).reshape(m,n,c) * kernel_weight
+    #blur image without forloops. 
+    image_blur[0:m,0:n,0:c] = ( pad_image[0:m, 0:n, 0:c]
+                + pad_image[1:m+1, 0:n, 0:c]
+                + pad_image[2:m+2, 0:n, 0:c]
+                + pad_image[0:m, 1:n+1, 0:c]
+                + pad_image[1:m+1, 1:n+1, 0:c]
+                + pad_image[2:m+2, 1:n+1, 0:c]
+                + pad_image[0:m, 2:n+2, 0:c]
+                + pad_image[1:m+1, 2:n+2, 0:c]
+                + pad_image[2:m+2, 2:n+2, 0:c]) 
 
-    end_time = time.process_time() 
+    image_blur *= kernel_weight
 
-    time_vec_numpy = end_time - start_time
+    return image_blur 
 
-    print("time used", time_vec_numpy)
+#def time_test(pad_image, image): 
+#    timeit blur_numpy(pad_image, image)
 
-    cv2.imwrite("beatles_blurred_numpy.jpg", image_blur2.astype('uint8'))
+if __name__ == "__main__":
+    #import timeit 
+    #blur_wrapper() 
+    pad_image, image = padImage()
+    image_blur = blur_numpy(pad_image, image)
+    cv2.imwrite("beatles_blurred_numpy.jpg", image_blur.astype('uint8'))
+    
+    #print(timeit.timeit("blur_wrapper()",setup="from __main__ import blur_wrapper"), number=1)
 
-    return time_vec_numpy, image_blur2
+    #print(timeit.timeit("blur_numpy(pad_image, image)",setup="from __main__ import blur_numpy"))
 
-#blur_numpy(pad_image)
+
+    #time_test(pad_image, image)

@@ -67,8 +67,16 @@ def blur_python(pad_image):
     print("time used: ", time_elementwise) 
     cv2.imwrite("beatles_blurred_python.jpg", image_blur.astype('uint8'))
 
-    return image_blur, time_elementwise 
+    return image_blur #, time_elementwise 
 
+if __name__ == "__main__":
+    #import timeit 
+    #blur_wrapper() 
+    #pad_image, image = padImage()
+    image_blur = blur_python(pad_image)
+    cv2.imwrite("beatles_blurred_cython.jpg", image_blur.astype('uint8'))
+
+"""
 def blur_numpy(pad_image): 
     # define new image 
     image_blur2 = np.zeros((m,n,c))
@@ -103,7 +111,7 @@ def blur_numpy(pad_image):
 
 
 # blurred image 
-"""
+
 @jit
 def blur_numba(pad_image):
     # define new image 

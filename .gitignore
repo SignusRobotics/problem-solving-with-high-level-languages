@@ -1,3 +1,5 @@
 .pytest_cache
 */__pycache__
 assignment4/build
+assignment4/test2.jpg
+assignment4/beatles_blur.jpg

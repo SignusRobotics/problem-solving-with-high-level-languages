@@ -2,6 +2,8 @@
 from distutils.core import setup 
 from Cython.Build import cythonize 
 
+import blur_2 
+
 setup(
     name = "Blur", 
     #ext_modules = cythonize("*.pyx"),
@@ -9,6 +11,8 @@ setup(
 
     #ext_modules = cythonize("helloworld.pyx"),
 
-)
+) 
+
+
 
 # python setup.py build_ext --inplace 
