@@ -8,18 +8,18 @@ cimport numpy as np
 np.import_array()
 #DTYPE = np.int
 
-#cpdef padImage():
+# cpdef padImage():
 """Preprocess image before blurring.    
 
 Returns: 
     pad_image: padded image with dimensions: m+2, n+2, c
     image: original image with dimensions m,n,c.   
 """
-#Read image 
+# Read image
 
-cpdef blur_python(): 
+cpdef blur_python():
     """Blur an image with only python and pixelwise. 
-    
+
     Args: 
         image (array, int): 3D array, image with dimensions m,n,c (height, width and channels). 
         pad_image (array, int) 3D array, padded height and width, with dimensions m+2, n+2, c. 
@@ -28,69 +28,66 @@ cpdef blur_python():
         image_blur: blurred image, same dimensions as image.  
     """
     filename = 'beatles.jpg'
-    
-    cdef np.ndarray[np.uint_t, ndim=3] image
+
+    cdef np.ndarray[np.uint_t, ndim = 3] image
     image = cv2.imread(filename).astype('uint')
-    
 
+    # cv2.imshow('I',image)
+    # cv2.waitKey()
 
-    #cv2.imshow('I',image)
-    #cv2.waitKey()
-
-    # pad image: 
-    cdef int m,n,c
-    #m, n, c = image.shape 
+    # pad image:
+    cdef int m, n, c
+    #m, n, c = image.shape
     m = image.shape[0]
     n = image.shape[1]
     c = image.shape[2]
 
-    cdef np.ndarray[np.uint_t, ndim=3] pad_im
-    pad_im = np.zeros((m+2, n+2, c), dtype=np.uint) 
+    cdef np.ndarray[np.uint_t, ndim = 3] pad_im
+    pad_im = np.zeros((m+2, n+2, c), dtype=np.uint)
 
-    cdef np.ndarray[np.uint_t, ndim=3] pimage
-    pimage = np.pad(image, (1,1), 'edge')
-    pad_im= pimage[:,:,1:4] 
-    #return pad_image, image 
+    cdef np.ndarray[np.uint_t, ndim = 3] pimage
+    pimage = np.pad(image, (1, 1), 'edge')
+    pad_im = pimage[:, :, 1:4]
+    # return pad_image, image
 
-
-    # define new image 
-    #cdef int m,n,c
+    # define new image
+    # cdef int m,n,c
     #m,n,c = image.shape
 
-    cdef np.ndarray[np.double_t, ndim=3] image_blur
-    image_blur = np.zeros((m,n,c), dtype=np.double)
+    cdef np.ndarray[np.double_t, ndim = 3] image_blur
+    image_blur = np.zeros((m, n, c), dtype=np.double)
 
     cdef double kernel_weight
-    kernel_weight = 1/9 
+    kernel_weight = 1/9
 
-    cdef np.ndarray[np.uint32_t, ndim=3] pad_image
+    cdef np.ndarray[np.uint32_t, ndim = 3] pad_image
     pad_image = pad_im.astype('uint32')
 
-    cdef int i,j,channel
+    cdef int i, j, channel
     cdef int test
 
-    for channel in range(0,c): 
-        for i in range(1,m+1): 
-            for j in range(1,n+1): 
-                test = ((pad_image[i-1, j-1, channel] + pad_image[i-1, j, channel] + pad_image[i-1,j+1, channel]
-                + pad_image[i,j-1,channel] + pad_image[i, j, channel] + pad_image[i,j+1,channel] 
-                + pad_image[i+1, j-1, channel] + pad_image[i+1, j, channel] + pad_image[i+1, j+1, channel]))
-                
-                #test = test * kernel_weight 
-                test = test / 9 
+    for channel in range(0, c):
+        for i in range(1, m+1):
+            for j in range(1, n+1):
+                test = ((pad_image[i-1, j-1, channel] + pad_image[i-1, j, channel] + pad_image[i-1, j+1, channel]
+                         + pad_image[i, j-1, channel] + pad_image[i,
+                                                                  j, channel] + pad_image[i, j+1, channel]
+                         + pad_image[i+1, j-1, channel] + pad_image[i+1, j, channel] + pad_image[i+1, j+1, channel]))
 
-                image_blur[i-1,j-1,channel] = (test)
+                #test = test * kernel_weight
+                test = test / 9
 
-    #kernel_weight.astype('uint32')
-    #cdef np.ndarray[np.uint8_t, ndim=3] im_blur
+                image_blur[i-1, j-1, channel] = (test)
+
+    # kernel_weight.astype('uint32')
+    # cdef np.ndarray[np.uint8_t, ndim=3] im_blur
     #im_blur = image_blur.astype('uint8')
-    cv2.imwrite("beatles_blurred_python.jpg", image_blur) #.astype('uint8'))
+    cv2.imwrite("beatles_blurred_python.jpg", image_blur)  # .astype('uint8'))
     #cv2.imwrite("beatles_blurred_python.jpg", im_blur)
 
+    # return image_blur #, time_elementwise
 
-    #return image_blur #, time_elementwise 
-
-if __name__ == '__main__': 
+if __name__ == '__main__':
     blur_python()
     #pad_image, image = padImage()
     #image_blur = blur_python(pad_image, image)
