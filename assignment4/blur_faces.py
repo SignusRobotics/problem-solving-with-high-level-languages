@@ -4,6 +4,8 @@
 import time
 import cv2
 import numpy as np
+import blur_assignment4.blur_2 as blur
+#import blur_2 as blur
 
 
 def face_detect(image):
@@ -37,63 +39,40 @@ def blur_faces(image, faces):
     pad_image = pimage[:, :, 1:4]
 
     m, n, c = image.shape
+    for (x, y, h, w) in faces:
+        image2 = cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
-    #test = cv2.imread(filename)
-    #image_blur = np.zeros(image.shape)
-    image_blur = image
-
-    kernel_weight = 1/9
-    # print(m,n)
-
+    # define blurred image.
+    image_blur = image2.copy()
     pad_image = pad_image.astype('uint32')
-    # print(pad_image.shape)
-    # print(image.shape)
-
-    #start_time = time.clock()
-    #start_time = time.process_time()
 
     for (y, x, h, w) in faces:
-        image_blur[x:x+h, y:y+w, 0:c] = (pad_image[x:x+h, y:y+w, 0:c]
-                                         + pad_image[x+1:x+h+1, y:y+w, 0:c]
-                                         + pad_image[x+2:x+h+2, y:y+w, 0:c]
-                                         + pad_image[x:x+h,     y+1:y+w+1, 0:c]
-                                         + pad_image[x+1:x+h+1, y+1:y+w+1, 0:c]
-                                         + pad_image[x+2:x+h+2, y+1:y+w+1, 0:c]
-                                         + pad_image[x:x+h,     y+2:y+w+2, 0:c]
-                                         + pad_image[x+1:x+h+1, y+2:y+w+2, 0:c]
-                                         + pad_image[x+2:x+h+2, y+2:y+w+2, 0:c])*kernel_weight
+        image_blur[x:x+h, y:y+w, 0:c] = blur.blur_numpy(pad_image[x:x+h+2, y:y+w+2, 0:c],
+                                                        image[x:x+h, y:y+w, 0:c])
 
-    #end_time = time.process_time()
-
-    #time_vec_numpy = end_time - start_time
-
-    #print(end_time - start_time)
     return image_blur
 
 
 def anonymized():
+    """Blur detected faces in image to not detectable. 
+
+    """
 
     faces = face_detect(image)
 
     temp_image = blur_faces(image, faces)
-    #faces = face_detect(temp_image)
     i = 0
-    #nr, coord = faces.shape
     nr, _ = faces.shape
 
     while nr > 0:
         i = i+1
         temp_image = blur_faces(temp_image, faces)
         faces = face_detect(temp_image)
-        #nr, coord = faces.shape
-
         nr = np.asarray(faces).size
-        #nr = faces.size
-
         print(nr)
 
     print(i)
-    cv2.imwrite("test2.jpg", temp_image.astype('uint8'))
+    cv2.imwrite('anonymized_blur.jpg', temp_image.astype('uint8'))
 
 
 if __name__ == '__main__':

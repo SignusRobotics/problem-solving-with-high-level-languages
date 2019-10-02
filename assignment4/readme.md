@@ -68,7 +68,12 @@ Scripts:
 setup.py 
 __init__.py 
 
-Implemented function blur_image in script blur.py. 
+Implemented function blur_image(input_filename, output_filename=None) in script blur.py which uses the numpy function for the blurring.  
+
+install package with:
+    pip install . --user
+
+package 'blur_assignment4'
 
 
 ### test_blur.py  
@@ -86,4 +91,4 @@ Run:
 
 Running as main: using example image, 'beatles.jpg'
 
-Output: approximately 202 blurred iterations. 
+Output: approximately 117 blurred iterations. Last output image saved as 'anonymized_blur.jpg'
