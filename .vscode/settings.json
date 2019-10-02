@@ -1,7 +1,6 @@
 {
     "python.pythonPath": "C:\\Users\\monah\\Anaconda3\\python.exe",
     "python.testing.pytestArgs": [
-        "assignment3",
         "assignment4"
     ],
     "python.testing.unittestEnabled": false,

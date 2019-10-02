@@ -1,0 +1,44 @@
+## report4.txt 
+
+Using two images, with dimensions: 
+    Image1 - (H,W,C) = (480, 640, 3) beatles.jpg
+    Image2 - (H,W,C) = (402, 721, 3) zebra.jpg 
+    
+    
+Runtime: 
+    Image1: 
+    Python: 3.82 s ± 103 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+    Numpy: 30.1 ms ± 4.17 ms per loop (mean ± std. dev. of 7 runs, 10 loops each) 
+    Numba: 9.09 ms ± 949 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
+    Cython: 10.7 ms pr loop (100 loops)
+
+    Image2: 
+    Python: 3.43 s ± 34.2 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+    Numpy: 24.4 ms ± 1.61 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
+    Numba: 7.7 ms ± 147 µs per loop (mean ± std. dev. of 7 runs, 1 loop each) 
+    Cython: 10.0 ms pr loop (100 loops)
+          
+By using Cython implementation the python code can be optimized with C. It is easy to access C libraries and  The positive effect 
+
+Negative the code is not as readable, slower in loops. More overhead translating between C and python types, especially where both have to use the same code. Introduces a complicating build step. 
+
+Can observe that the Cython code is slightly slower than the numba code as expected. Cython uses more overhead in loop preformance. Also it is harder to handroll optimized code compared to the automated way Numba can jit it. 
+
+Speedup gained from python to vectorized: 
+    Image2 - (3.43-0.024)/0.024 = 141.9% gained 
+    Image1 - (3.82-0.03)/0.03 = 126.3% gained 
+    
+Speedup gained from python to numba:  
+    Image2 - (3.43-0.0077)/0.0077 = 444.5% gained 
+    Image1 - (3.82-0.009)/0.009 = 423% gained  
+   
+Speedup gained from numpy to numba:  
+    Image2 - (0.024-0.0077)/0.0077 = 2.1% gained 
+    Image1 - (0.03-0.009)/0.009 = 2.3% gained  
+    
+Speedup gained from numpy to cython:
+    Image2 - (0.024-0.01)/0.01 = 1.4% gained 
+    Image1 - (0.03-0.0107)/0.0107 = 1.8% gained  
+
+
+
