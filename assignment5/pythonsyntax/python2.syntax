@@ -1,0 +1,5 @@
+"^\s*(?P<def>def)\s(.*)\((.*)\).*:[\s*]?": function
+"(?P<import>import)\s.*\s(from)\s.*\s(as).*" : import_statement 
+"(?P<forloops>for)\s.*\s(in)\s.*\s(range).*" : forloops 
+"(?P<NTF>None|True|False)" : NoneTF 
+"#.*(?:$|\n)": comment  

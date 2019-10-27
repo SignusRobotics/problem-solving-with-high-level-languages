@@ -1,0 +1,9 @@
+"^\s*(def)\s(.*)\((.*)\).*:[\s*]?(\#.*)?": function
+"^\s*(class)\s*(.*)\((.*)\).*:[\s*]?(\#.*$)?" : class
+"(import|from|as)" : import_statement 
+"(for|in)" : forloops 
+"^(while)" : while
+"^(if|elif|else) " : ifelse 
+"\s*(try|except|raise|as)\s*(IOError|ValueError|RuntimeError|TypeError|NameError)?" : TryExcept 
+"\s*(None|True|False)\s*" : NoneTF 
+"#.*(?:$|\n)": comment  
