@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import argparse
 import re
 
@@ -35,7 +37,12 @@ if __name__ == '__main__':
     parser.add_argument('--sourcefile_to_search',
                         default='test.txt', help='source file')
     parser.add_argument(
-        '--search_regex', default=['^\\s*(?P<def>def)\\s(.*)\\((.*)\\).*:[\\s*]?', 'from', "(?P<import>import)\s.*\s(from)\s.*\s(as).*", '#.*(?:$|\n)', 'test', '#.*(?:$|\n)', 'def', 'bla', 'import', '#',  'True'], help='source file')
+
+
+        '--search_regex', default=['^\\s*(?P<def>def)\\s(.*)\\((.*)\\).*:[\\s*]?', 'elif', "(?P<import>import)\s.*\s(from)\s.*\s(as).*", '#.*(?:$|\n)', 'test', ], help='source file')
+
+    # parser.add_argument(
+    #    '--search_regex', default=['^\\s*(?P<def>def)\\s(.*)\\((.*)\\).*:[\\s*]?', 'from', "(?P<import>import)\s.*\s(from)\s.*\s(as).*", '#.*(?:$|\n)', 'test', 'def', 'bla', 'import', '#',  'True'], help='source file')
     parser.add_argument('--highlight', default='true',
                         help='highlight where search is positive')
 
