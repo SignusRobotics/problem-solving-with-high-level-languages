@@ -14,7 +14,8 @@ run alone with:
 
 Example:
 
-```python3 highlighter.py python.syntax python.theme test.py``` 
+```python3 highlighter.py ./pythonsyntax/python.syntax ./pythonsyntax/python.theme test.txt```
+
 
 ## 5.2 python.syntax, python.theme, python2.theme  
 
@@ -32,7 +33,7 @@ Can be used with highlighter.py with a sourcefile.
 
 A demo can be found by running this:  
 
-```python3 highlighter.py python.syntax python.theme test.py``` 
+```python3 highlighter.py ./pythonsyntax/python.syntax ./pythonsyntax/python.theme test.txt```
 
 ## 5.3 favorite_language.syntax and favorite_language.theme 
 
@@ -78,4 +79,3 @@ Searching for + and - in beginning of each line in a file that have been run wit
 Had some problems with encoding and/or escaping the + symbols in the regex, therefore I use another symbol (&) to show the potential output: 
 
 ```python3 highlighter.py diff.syntax diff.theme diff_output2.txt``` 
-

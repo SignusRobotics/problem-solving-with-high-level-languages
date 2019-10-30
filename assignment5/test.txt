@@ -4,8 +4,9 @@ def color_format_func(regex_in=True, lines = False): # bla
 class ABC:
 print"test_string"
 while (True) : # hallo
-if else 
+if 
+    else 
         for item in range(l):
-elif 
+    elif 
 try:
-except ValueError:
+except ValueError:  

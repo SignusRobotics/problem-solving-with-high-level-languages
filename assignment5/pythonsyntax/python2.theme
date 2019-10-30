@@ -1,0 +1,12 @@
+function:  0;32 0;33 0;36 0;31
+class: 0;32 0;34 
+import_statement: 0;34 0;34 0;34  
+import_statement2 : 0;34
+forloops : 0;41 0;45 
+while: 0;36
+ifelse: 0;36 
+TryExcept: 0;36 
+TryExcept2: 0;36 0;31
+NoneTF: 0;44 
+string : 0;33
+comment: 0;35  
