@@ -1,9 +1,11 @@
-import blabla from ABC as a  # test blabla True blabla
+import blabla from ABC as a  # test test1 True test4
 def color_format_func(regex_in, line, code): True
-def color_format_func(regex_in=True, lines = False):
-class ABC():
-for in before inform
-bla bla "test_string"
+def color_format_func(regex_in=True, lines = False): # bla
+class ABC:
+print"test_string"
 while (True) : # hallo
 if else 
+        for item in range(l):
 elif 
+try:
+except ValueError:

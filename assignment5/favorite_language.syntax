@@ -1,0 +1,10 @@
+"^\s*(?P<function>void|int|double)\s(.*)\((.*)\)": function 
+"^\s*(?P<include>[#]include)\s([<|"].*[>|"])" : include 
+"(?P<alloc>malloc|calloc|realloc|free)\(.*\)[;\s*]?" : alloc
+"^\s*(?P<forloops>for)\s\(.*\)" : forloops 
+"^\s*(?P<ifelse>if|else if|else)" : ifelse
+"^\s*(?P<while>while)" : while
+"^\s*(?P<switchcase>switch|case|default)[\s.*:]" : switchcase
+"(?P<type>int|double|char|float|signed|unsigned|long|short|const)" : type 
+"(?P<string>["].*["])" : string 
+"[/][/].*(?:$|\n)": comment  

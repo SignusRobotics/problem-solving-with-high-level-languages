@@ -2,54 +2,75 @@
 # -*- coding: utf-8 -*-
 import argparse
 import re
+import highlighter as h
 
+def get_lines(filename, regex): 
+    """Fetch lines from source file.  
 
-def color_format(color):
-    start_code = "\033[{}m".format(color)
-    end_code = "\033[0m"
-    return start_code, end_code
+    Args: 
+        filename (file) : search file 
+        regex (regex code) : list of regex 
+    
+    Returns: 
+        new_list (list) : Returns a list of lines where match found 
+    """
 
+    new_list = [] 
+        
+    with open(filename) as file: 
+        lines = [line for line in file] 
+        for line in lines: 
+            match = False 
+            for j in range(0, len(regex)):
+                search_line = re.search(regex[j], line)
+                if search_line != None: 
+                    match = match_search(regex[j], line)
+                
+            if match == True:             
+                new_list.append(line.strip())
+    return new_list 
 
-def search_regex(regex, line):
+def match_search(regex, line): 
+    """Search regex in string 
+
+    Args: 
+        regex (regex pattern) : search pattern 
+        line (str) : source to search
+    
+    Returns: 
+        boolean value 
+    """ 
     search_for_regex = re.search(regex, line)
     if search_for_regex != None:
         return True
     else:
         return False
 
-
-def color_regex_in_line(line, regex, color):
-    start, stop = color_format(color)
-    return re.sub(regex, start + regex + stop, line)
-
-
-def test(matchobj, line, color):
-    start, stop = color_format(color)
-
-    for match in matchobj.groups():
-        line = re.sub(match, start + match + stop, line)
-        # print(line)
-    return line
-
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='grep')
     parser.add_argument('--sourcefile_to_search',
-                        default='test.txt', help='source file')
-    parser.add_argument(
+                        default='test.txt', 
+                        help='source file')
 
-
-        '--search_regex', default=['^\\s*(?P<def>def)\\s(.*)\\((.*)\\).*:[\\s*]?', 'elif', "(?P<import>import)\s.*\s(from)\s.*\s(as).*", '#.*(?:$|\n)', 'test', ], help='source file')
-
-    # parser.add_argument(
-    #    '--search_regex', default=['^\\s*(?P<def>def)\\s(.*)\\((.*)\\).*:[\\s*]?', 'from', "(?P<import>import)\s.*\s(from)\s.*\s(as).*", '#.*(?:$|\n)', 'test', 'def', 'bla', 'import', '#',  'True'], help='source file')
-    parser.add_argument('--highlight', default='true',
+    parser.add_argument('--highlight', 
+                        default='true', 
+                        choices=['true','false'],
                         help='highlight where search is positive')
+    parser.add_argument('--search_regex', 
+                        type=str, 
+                        nargs="*", 
+                        default=[
+                            '^\s*(?P<def>def)\s(.*)\((.*)\).*:[\s*]?','(["].*["])',
+                            '^\s*(import|from)\s\w*[\s]?(as|from)?\s\w*[\s]?(as)?\s\w*[\s*]?',
+                            '#.*(?:$|\n)'], 
+                        help='regex to search for')
 
     args = parser.parse_args()
     regex = args.search_regex
+    print(regex)
     filename = args.sourcefile_to_search
     color_regex_flag = args.highlight
+    
     if color_regex_flag == 'true':
         color_regex_flag = True
     else:
@@ -57,46 +78,23 @@ if __name__ == '__main__':
 
     color_list = ['0;34', '0;33', '0;36', '0;35', '0;32']
 
-    for i in color_list:
-        print(color_regex_in_line('test', 'test', i))
-
     nr_regex = len(regex)
 
-    color_theme = []
+    color_theme = {}
     for i in range(0, len(regex)):
         j = i % len(color_list)
-        color_theme.append(color_list[j])
+        color_theme[i] = color_list[j]
+    regex_dict = {}
+    
+    for i in range(0, len(regex)):
+        regex_dict[i] = regex[i]
 
-    result_list = []
+    result_list = [] 
 
-    with open(filename) as file:
-        lines = [line for line in file]
-
-        for line in lines:
-            i = 0
-            new_line = line
-            line_append_key = False
-
-            for item in regex:
-                search_line_result = search_regex(item, line)
-                if search_line_result == True:
-                    line_append_key = True
-
-                    if color_regex_flag == True:
-                        match = re.search(item, line)
-                        # print(match)
-                        new_line = test(match, new_line, color_theme[i])
-                        # new_line = color_regex_in_line(
-                        #    line, item, color_theme[i])
-
-                i = i + 1
-            if line_append_key == True:
-                if color_regex_flag == True:
-                    result_list.append(new_line)
-                else:
-                    result_list.append(line)
-
-            i = 0
+    if color_regex_flag == True:
+        result_list = h.highlighter_function(regex_dict, color_theme, filename, match_filter = True) 
+    else: 
+        result_list = get_lines(filename, regex) 
 
     for item in result_list:
         print(item)

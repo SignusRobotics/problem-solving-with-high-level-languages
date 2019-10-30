@@ -1,9 +1,12 @@
-"^\s*(def)\s(.*)\((.*)\).*:[\s*]?(\#.*)?": function
-"^\s*(class)\s*(.*)\((.*)\).*:[\s*]?(\#.*$)?" : class
-"(import|from|as)" : import_statement 
-"(for|in)" : forloops 
-"^(while)" : while
-"^(if|elif|else) " : ifelse 
-"\s*(try|except|raise|as)\s*(IOError|ValueError|RuntimeError|TypeError|NameError)?" : TryExcept 
-"\s*(None|True|False)\s*" : NoneTF 
+"^\s*(?P<def>def)\s(.*)\((.*)\).*:[\s*]?": function 
+"^\s*(?P<class>class)\s(.*[:])" : class 
+"^\s*(?P<import_statement>import|from)\s\w*[\s]?(as|from)?\s\w*[\s]?(as)?\s\w*[\s*]?" : import_statement  
+"^\s*(?P<import_statement2>import)\s\w*[\s]?$" : import_statement2
+"^\s*(?P<forloops>for)\s\w*\s(in)\s.*" : forloops
+"^\s*(?P<while>while)" : while
+"^\s*(?P<ifelse>if|elif|else)" : ifelse 
+"^\s*(?P<TryExcept>try|except|finally)[:]" : TryExcept 
+"^\s*(?P<TryExcept2>except)\s*(IOError|ValueError|RuntimeError|TypeError|NameError)[:][\s.*]?" :TryExcept2
+"(?P<NTF>None|True|False)" : NoneTF 
+"(?P<string>["].*["])" : string 
 "#.*(?:$|\n)": comment  

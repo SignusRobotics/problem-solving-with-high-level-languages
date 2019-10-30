@@ -1,9 +1,0 @@
-"^\s*(?P<def>def)\s(.*)\((.*)\).*:[\s*]?": function 
-"^\s*(?P<class>class)\s\s*(.*):" : class 
-"^\s*(import|from)\s\w*[\s]?(as|from)?\s\w*[\s]?(as)?\s\w*[\s*]?" : import_statement  
-"^\s*(import)\s\w*[\s]?$" : import_statement2
-"^\s*(?P<forloops>for)\s\w*\s(in)\s.*:" : forloops 
-"^\s*(while)" : while
-"^\s*(if|elif|else) " : ifelse 
-"(?P<NTF>None|True|False)" : NoneTF 
-"#.*(?:$|\n)": comment  
