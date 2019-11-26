@@ -5,13 +5,36 @@
     <meta charset="utf-8">
     <title>Welcome</title>
 </head>
-<form>
+<form action="/user_defined" method="POST">
+    <h1>
+        <br>
+        Model:
+        <br>
+    </h1>
     <input type="radio" name="classifier" value="knn">KNN
     <br>
     <input type="radio" name="classifier" value="logreg">Logistic Regression
     <br>
     <input type="radio" name="classifier" value="SVM">SVM
+    <br>
+    <h1>
+        <br>
+        Features:
+        <br>
+    </h1>
+    {% for i in list_features %}
+
+    <input type="checkbox" name="features" value={{i}}>{{i}}
+    <br>
+    {% endfor %}
+
+    <br>
+
+
+
+    <input type="submit" value="Submit">
 </form>
+
 
 <body>
     <img src="/static/test.png">
