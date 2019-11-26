@@ -69,15 +69,19 @@ cpdef blur_python(np.ndarray[np.uint32_t, ndim=3] pad_image, np.ndarray[np.uint_
     for channel in range(0, c):
         for i in range(1, m+1):
             for j in range(1, n+1):
-                test = ((pad_image[i-1, j-1, channel] + pad_image[i-1, j, channel] + pad_image[i-1, j+1, channel]
-                         + pad_image[i, j-1, channel] + pad_image[i,
-                                                                  j, channel] + pad_image[i, j+1, channel]
-                         + pad_image[i+1, j-1, channel] + pad_image[i+1, j, channel] + pad_image[i+1, j+1, channel]))
+                test = (pad_image[i-1, j-1, channel]
+                        + pad_image[i-1, j, channel]
+                        + pad_image[i-1, j+1, channel]
+                        + pad_image[i, j-1, channel]
+                        + pad_image[i, j, channel]
+                        + pad_image[i, j+1, channel]
+                        + pad_image[i+1, j-1, channel]
+                        + pad_image[i+1, j, channel]
+                        + pad_image[i+1, j+1, channel])
 
                 #test = test * kernel_weight
                 test = test / 9
-
-                image_blur[i-1, j-1, channel] = (test)
+                image_blur[i-1, j-1, channel] = test
 
     # kernel_weight.astype('uint32')
     # cdef np.ndarray[np.uint8_t, ndim=3] im_blur
