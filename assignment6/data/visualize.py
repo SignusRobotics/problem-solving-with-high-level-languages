@@ -2,21 +2,24 @@ import pylab as pl
 import numpy as np
 from matplotlib.colors import ListedColormap
 
-import data.data as data
-import fitting
+#import data.data as data
+
+#import data.fitting as fitting
+
 
 # Create color maps for 3-class classification problem, as with iris
 cmap_light = ListedColormap(['#AAAAFF', '#FFAAAA'])
 cmap_bold = ListedColormap(['#0000FF', '#FF0000'])
 
 
-def plot_model(classifier, X, y):
+def plot_model(classifier, X, y, filename):
     """Plot and saves figure with given dataframe and model. 
 
     Args: 
         classifier (obj): model to use. 
         X (DataFrame): given dataset to use. 
         y (DataFrame): given labels for X. 
+        filename (filepath): save filepath
     """
 
     classifier.fit(X, y)
@@ -46,12 +49,14 @@ def plot_model(classifier, X, y):
     pl.axis('tight')
     pl.gca().legend()
 
-    pl.savefig('static/images/test2.png')
+    pl.savefig(filename)
 
 
 if __name__ == '__main__':
+    import fitting
+    import data
 
-    data_read = data.read_csv("data/diabetes.csv")
+    data_read = data.read_csv("diabetes.csv")
 
     new_data = data.remove_Nan(data_read)
     new_data = data.diabetes_to_int(new_data, 'diabetes')
@@ -65,4 +70,5 @@ if __name__ == '__main__':
         train_data, target_train, features, classifiers)
     pred, scores = fitting.predict(test_data, target_test, trained_model)
 
-    plot_model(classifiers[1], train_data[features], target_train,)
+    plot_model(classifiers[1], train_data[features],
+               target_train, '../static/images/plot')

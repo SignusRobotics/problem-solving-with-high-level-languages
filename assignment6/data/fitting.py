@@ -9,7 +9,8 @@ from sklearn.linear_model import SGDClassifier
 
 from sklearn import metrics
 
-import data.data as data
+#import data.data as data
+import data
 
 
 def initialize_models():
@@ -126,7 +127,7 @@ def training_data(dataset, features):
 
 
 if __name__ == '__main__':
-    data_read = data.read_csv("data/diabetes.csv")
+    data_read = data.read_csv("diabetes.csv")
 
     new_data = data.remove_Nan(data_read)
     new_data = data.diabetes_to_int(new_data, 'diabetes')

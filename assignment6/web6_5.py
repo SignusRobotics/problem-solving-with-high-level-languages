@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request
 
 import data.data as data
-import fitting
-import visualize
+import data.fitting as fitting
+import data.visualize as visualize
 
 app = Flask(__name__)
 
@@ -43,6 +43,11 @@ def image():
 
 
 def main_test(new_data, model, selected_features):
+    """test
+
+    Args: 
+        new_data (DataFrame): DataFrame
+    """
     train, test, target_train, target_test = data.split_data(new_data)
 
     features = selected_features  # ['mass', 'glucose']
@@ -56,7 +61,7 @@ def main_test(new_data, model, selected_features):
 
     if len(selected_features) == 2:
         visualize.plot_model(classifiers[model],
-                             train_data[features], target_train,)
+                             train_data[features], target_train, 'static/images/plot.png')
     _, score1 = fitting.predict(test_data, target_test, trained_model)
     _, score2 = fitting.predict(train_data, target_train, trained_model)
     return score1, score2
