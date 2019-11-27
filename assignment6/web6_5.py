@@ -1,8 +1,13 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file
 
 import data.data as data
 import data.fitting as fitting
 import data.visualize as visualize
+
+from PIL import Image
+import io
+import uuid
+
 
 app = Flask(__name__)
 
@@ -38,8 +43,19 @@ def image():
                                show_image=len(selected_features) == 2,
                                message="accuracy score, test: ",
                                score_test=score1,
+                               cache_bust=uuid.uuid4().hex[:6],
                                message2="accuracy score, train: ",
                                score_train=score2)
+
+
+@app.route('/image/<imagename>', methods=['GET'])
+def show_image(imagename):
+    img = Image.open('static/images/' + imagename)
+
+    file_object = io.BytesIO()
+    img.save(file_object, 'PNG')
+    file_object.seek(0)
+    return send_file(file_object, mimetype='image/png')
 
 
 def main_test(new_data, model, selected_features):
