@@ -2,15 +2,6 @@ import pylab as pl
 import numpy as np
 from matplotlib.colors import ListedColormap
 
-#import data.data as data
-
-#import data.fitting as fitting
-
-
-# Create color maps for 3-class classification problem, as with iris
-cmap_light = ListedColormap(['#AAAAFF', '#FFAAAA'])
-cmap_bold = ListedColormap(['#0000FF', '#FF0000'])
-
 
 def plot_model(classifier, X, y, filename):
     """Plot and saves figure with given dataframe and model. 
@@ -21,7 +12,8 @@ def plot_model(classifier, X, y, filename):
         y (DataFrame): given labels for X. 
         filename (filepath): save filepath
     """
-
+    cmap_light = ListedColormap(['#AAAAFF', '#FFAAAA'])
+    cmap_bold = ListedColormap(['#0000FF', '#FF0000'])
     classifier.fit(X, y)
 
     x_min, x_max = X.iloc[:, 0].min() - .1, X.iloc[:, 0].max() + .1

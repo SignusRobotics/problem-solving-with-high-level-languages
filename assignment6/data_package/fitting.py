@@ -9,9 +9,6 @@ from sklearn.linear_model import SGDClassifier
 
 from sklearn import metrics
 
-#import data.data as data
-import data
-
 
 def initialize_models():
     """Initialize models used in this project.
@@ -81,10 +78,6 @@ def fit(train_X, train_label, features, classifier):
         trained_model (list, obj): list of evry trained model on all classifier in project for given features.
     """
     trained_model = []
-    # if len(classifier) == 1:
-    #    trained_model.append(classifier.fit(train_X[features], train_label))
-
-#    else:
     for item in classifier:
         trained_model.append(item.fit(train_X[features], train_label))
     return trained_model
@@ -127,6 +120,8 @@ def training_data(dataset, features):
 
 
 if __name__ == '__main__':
+    import data
+
     data_read = data.read_csv("diabetes.csv")
 
     new_data = data.remove_Nan(data_read)

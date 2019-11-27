@@ -38,10 +38,10 @@ def split_data(dataset):
         dataset (DataFrame): DataFrame to use.
 
     Returns:
-        train ():
-        test ():
-        target_train ():
-        target_test ():
+        train (DataFrame): train set 
+        test (DataFrame): test set
+        target_train (DataFrame): train set labels
+        target_test (DataFrame): test set labls
     """
     train, test, target_train, target_test = train_test_split(
         dataset, dataset['diabetes'], train_size=0.8, random_state=42)

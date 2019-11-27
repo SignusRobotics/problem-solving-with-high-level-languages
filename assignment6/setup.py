@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 setup(
-    name='data',
+    name='data_package',
     version='1.0',
-    packages=["data"]
+    packages=["data_package"]
 )
