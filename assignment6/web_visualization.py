@@ -44,11 +44,10 @@ def image():
                                message2="accuracy score, train: ",
                                score_train=score2)
 
-
+# inspired by https://stackoverflow.com/a/56948059s
 @app.route('/image/<imagename>', methods=['GET'])
 def show_image(imagename):
     img = Image.open('static/images/' + imagename)
-
     file_object = io.BytesIO()
     img.save(file_object, 'PNG')
     file_object.seek(0)

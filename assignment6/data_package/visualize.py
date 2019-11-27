@@ -2,14 +2,17 @@ import pylab as pl
 import numpy as np
 from matplotlib.colors import ListedColormap
 
+# inspired by lecture example
+# https://github.com/UiO-IN3110/UiO-IN3110.github.io/blob/master/lectures/12_scikit_learn/fig_code/helpers.py
+
 
 def plot_model(classifier, X, y, filename):
-    """Plot and saves figure with given dataframe and model. 
+    """Plot and saves figure with given dataframe and model.
 
-    Args: 
-        classifier (obj): model to use. 
-        X (DataFrame): given dataset to use. 
-        y (DataFrame): given labels for X. 
+    Args:
+        classifier (obj): model to use.
+        X (DataFrame): given dataset to use.
+        y (DataFrame): given labels for X.
         filename (filepath): save filepath
     """
     cmap_light = ListedColormap(['#AAAAFF', '#FFAAAA'])
@@ -40,6 +43,7 @@ def plot_model(classifier, X, y, filename):
     pl.ylabel(features[1])
     pl.axis('tight')
     pl.gca().legend()
+    pl.title(type(classifier).__name__)
 
     pl.savefig(filename)
 
@@ -63,4 +67,4 @@ if __name__ == '__main__':
     pred, scores = fitting.predict(test_data, target_test, trained_model)
 
     plot_model(classifiers[1], train_data[features],
-               target_train, '../static/images/plot')
+               target_train, '../static/images/plot.png')
