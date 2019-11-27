@@ -5,17 +5,21 @@
     <meta charset="utf-8">
     <title>Welcome</title>
 </head>
-<form action="/user_defined" method="POST">
+<form action="/" method="POST">
     <h1>
         <br>
         Model:
         <br>
     </h1>
-    <input type="radio" name="classifier" value="knn">KNN
+    <input type="radio" name="classifier" value="knn" checked>KNN
     <br>
     <input type="radio" name="classifier" value="logreg">Logistic Regression
     <br>
     <input type="radio" name="classifier" value="SVM">SVM
+    <br>
+    <input type="radio" name="classifier" value="BN">Naive Bayes
+    <br>
+    <input type="radio" name="classifier" value="SGD">SGD
     <br>
     <h1>
         <br>
@@ -30,26 +34,42 @@
 
     <br>
 
-
-
     <input type="submit" value="Submit">
 </form>
 
 
 <body>
-    <img src="/static/test.png">
+    {% if show_statistics %}
+    <h3>
+        Results:
+        <br>
+        <h4>
+            Selected features: {{selected_features}}
+            <br>
+            Selected model: {{model}}.
+            <br>
+        </h4>
+    </h3>
     <p>
         {{message}}
     </p>
     <p>
-        {{score_test}}
+        {{score_test}} %
     </p>
     <p>
         {{message2}}
     </p>
     <p>
-        {{score_train}}
+        {{score_train}} %
     </p>
+    {%if show_image %}
+    <p>
+        Plot of features and target
+    </p>
+    <img src="../static/images/test2.png" alt="test" width="auto" height="auto">
+    {% endif %}
+    {% endif %}
+
 </body>
 
 </html>

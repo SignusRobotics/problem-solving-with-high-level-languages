@@ -11,10 +11,15 @@ cmap_bold = ListedColormap(['#0000FF', '#FF0000'])
 
 
 def plot_model(classifier, X, y):
+    """Plot and saves figure with given dataframe and model. 
+
+    Args: 
+        classifier (obj): model to use. 
+        X (DataFrame): given dataset to use. 
+        y (DataFrame): given labels for X. 
+    """
 
     classifier.fit(X, y)
-    print(X.shape)
-    print(y.shape)
 
     x_min, x_max = X.iloc[:, 0].min() - .1, X.iloc[:, 0].max() + .1
     y_min, y_max = X.iloc[:, 1].min() - .1, X.iloc[:, 1].max() + .1
@@ -24,20 +29,24 @@ def plot_model(classifier, X, y):
 
     # Put the result into a color plot
     Z = Z.reshape(xx.shape)
+    pl.show()
     pl.figure()
     pl.pcolormesh(xx, yy, Z, cmap=cmap_light)
 
     # Plot also the training points
-    pl.scatter(X.iloc[:, 0], X.iloc[:, 1], c=y, cmap=cmap_bold)
+    pl.scatter(X.iloc[:, 0],
+               X.iloc[:, 1],
+               c=y,
+               label='neg',
+               cmap=cmap_bold)
     features = list(X.columns.values)
-
-    print(features)
 
     pl.xlabel(features[0])
     pl.ylabel(features[1])
     pl.axis('tight')
+    pl.gca().legend()
 
-    pl.savefig('static/test2.png')
+    pl.savefig('static/images/test2.png')
 
 
 if __name__ == '__main__':
